@@ -190,48 +190,77 @@ import ReactDOM from 'react-dom';
 
 
 // State and Lifecycle https://reactjs.org/docs/state-and-lifecycle.html
-class Clock extends React.Component {
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {date: new Date()};
+//   }
+//
+//   componentDidMount() {
+//     this.timerID = setInterval(
+//       () => this.tick(),
+//       1000
+//     );
+//   }
+//
+//   componentWillUnmount() {
+//     clearInterval(this.timerID);
+//   }
+//
+//   tick() {
+//     this.setState({ date: new Date() });
+//   }
+//
+//   render() {
+//     return (
+//       <div>
+//         <h1>Hello World</h1>
+//         <h2>It is {new Date().toLocaleTimeString()}.</h2>
+//       </div>
+//     );
+//   }
+// }
+//
+// function App() {
+//   return (
+//     <div>
+//       <Clock />
+//       <Clock />
+//       <Clock />
+//     </div>
+//   );
+// }
+//
+// ReactDOM.render(
+//   <App />,
+//   document.getElementById('root')
+// );
+
+class Toggle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {isToggleOn: true};
+
+    // このbindは必要
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({ date: new Date() });
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
   }
 
   render() {
     return (
-      <div>
-        <h1>Hello World</h1>
-        <h2>It is {new Date().toLocaleTimeString()}.</h2>
-      </div>
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF' }
+      </button>
     );
   }
 }
 
-function App() {
-  return (
-    <div>
-      <Clock />
-      <Clock />
-      <Clock />
-    </div>
-  );
-}
-
 ReactDOM.render(
-  <App />,
+  <Toggle />,
   document.getElementById('root')
 );
