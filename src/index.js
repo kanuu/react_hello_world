@@ -236,31 +236,171 @@ import ReactDOM from 'react-dom';
 //   document.getElementById('root')
 // );
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
+// class Toggle extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {isToggleOn: true};
+//
+//     // このbindは必要
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+//
+//   handleClick() {
+//     this.setState(prevState => ({
+//       isToggleOn: !prevState.isToggleOn
+//     }));
+//   }
+//
+//   render() {
+//     return (
+//       <button onClick={this.handleClick}>
+//         {this.state.isToggleOn ? 'ON' : 'OFF' }
+//       </button>
+//     );
+//   }
+// }
+//
+// ReactDOM.render(
+//   <Toggle />,
+//   document.getElementById('root')
+// );
 
-    // このbindは必要
-    this.handleClick = this.handleClick.bind(this);
+// //// ログイン　ログアウト
+// function UserGreeting(props) {
+//   return <h1>おかえりなさい</h1>;
+// }
+//
+// function GuestGreeting(props) {
+//   return <h1>登録してくれ！</h1>
+// }
+//
+// function Greeting(props) {
+//   const isLoggedIn = props.isLoggedIn;
+//   if (isLoggedIn) {
+//     return <UserGreeting />;
+//   }
+//   return <GuestGreeting />;
+// }
+//
+// function LoginButton(props) {
+//   return (
+//     <button onClick={props.onClick}>
+//       ログイン
+//     </button>
+//   )
+// }
+//
+// function LogoutButton(props) {
+//   return (
+//     <button onClick={props.onClick}>
+//       ログアウト
+//     </button>
+//   );
+// }
+//
+// class LoginControl extends React.Component
+// {
+//   constructor(props) {
+//     super(props);
+//     this.handleLoginClick  = this.handleLoginClick.bind(this);
+//     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+//     this.state = {isLoggedIn: false};
+//   }
+//
+//   handleLoginClick() {
+//     this.setState({isLoggedIn: true});
+//   }
+//
+//   handleLogoutClick() {
+//     this.setState({isLoggedIn: false});
+//   }
+//
+//   render() {
+//     const isLoggedIn = this.state.isLoggedIn;
+//
+//     // let button = null;
+//     // if (isLoggedIn) {
+//     //   button = <LogoutButton onClick={this.handleLogoutClick} />
+//     // } else {
+//     //   button = <LoginButton onClick={this.handleLoginClick} />
+//     // }
+//
+//     return (
+//       <div>
+//         {isLoggedIn ? (
+//         <LogoutButton onClick={this.handleLogoutClick} />
+//         ) : (
+//           <LoginButton onClick={this.handleLoginClick} />
+//         )}
+//       </div>
+//     );
+//   }
+// }
+//
+// ReactDOM.render(
+//   <LoginControl />,
+//   document.getElementById('root')
+// );
+//
+// // // MailBox
+// // function Mailbox(props) {
+// //   const unreadMessages = props.unreadMessages;
+// //   return (
+// //     <div>
+// //       <h1>Hello!</h1>
+// //       {unreadMessages.length > 0 &&
+// //         <h2>
+// //           You have {unreadMessages.length} unread messages.
+// //         </h2>
+// //       }
+// //     </div>
+// //   );
+// // }
+// //
+// // const messages = ['React', 'Re: React', 'Re:Re:React'];
+// // ReactDOM.render(
+// //   <Mailbox unreadMessages={messages} />,
+// //   document.getElementById('root')
+// // );
+
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
   }
 
-  handleClick() {
+  return (
+    <div className="Warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true}
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
     this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
+      showWarning: !prevState.showWarning
     }));
   }
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF' }
-      </button>
-    );
+      <div>
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+        <WarningBanner warn={this.state.showWarning} />
+      </div>
+    )
   }
 }
 
 ReactDOM.render(
-  <Toggle />,
+  <Page />,
   document.getElementById('root')
 );
